@@ -41,6 +41,19 @@ app.post('/quotes', (req, res) => {
     })
 })
 
+// app.get('/', (req, res) => {
+//   var cursor = db.collection('quotes').find()
+//   db.collection('quotes').find().toArray(function (err, results) {
+//     console.log(results)
+//   })
+// })
+
+app.set('view engine', 'ejs')
+    // res.render(view, locals)
+
 app.get('/', (req, res) => {
-    var cursor = db.collection('quotes').find()
+    db.collection('quotes').find().toArray((err, result) => {
+        if (err) return console.log(err)
+        res.render('index.ejs', { quotes: result })
+    })
 })
